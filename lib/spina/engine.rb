@@ -6,6 +6,7 @@ require 'coffee-rails'
 require 'jquery-rails'
 require 'jquery-fileupload-rails'
 require 'turbolinks'
+require 'fog'
 require 'carrierwave'
 require 'mini_magick'
 require 'cancan'
@@ -45,8 +46,10 @@ module Spina
             aws_secret_access_key: Engine.config.aws_secret_key
           }
           cfg.fog_directory  = Engine.config.s3_bucket
+          cfg.cache_dir = "#{Rails.root}/tmp/uploads"
           cfg.fog_public     = true
           cfg.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
+          cfg.storage = :fog
         else
           cfg.storage = :file
         end
