@@ -38,7 +38,7 @@ module Spina
     def configure_carrierwave
       CarrierWave.configure do |cfg|
         if Engine.config.try(:storage) == :s3
-          cfg.storage = :fog
+          cfg.fog_provider = 'fog/aws'
           cfg.fog_credentials = {
             provider: 'AWS',
             region: Engine.config.aws_region,
